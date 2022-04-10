@@ -4,8 +4,20 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
+    [SerializeField] private Item item;
+
     private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.gameObject.CompareTag("Player"))  //when player collides with a piece of clothing
+        {
+            WearItem();
+        }
+    }
+
+    public void WearItem()
+    {
+        Debug.Log(item.itemName + " is now worn");
+        OutfitManager.instance.Wear(item); //equip the picked-up item
+        Destroy(gameObject); //remove the clothes object
     }
 }

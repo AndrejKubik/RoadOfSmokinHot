@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1d3eaebd57a7514e9f6f420f4f61227, type: 3}
-  m_Name: BlueHoodie
+  m_Name: BlackSweatpants
   m_EditorClassIdentifier: 
-  itemName: BlueHoodie
-  childIndex: 2
-  itemScore: 2
-  outfitSlot: 0
+  itemName: BlackSweatpants
+  childIndex: 16
+  itemScore: 1
+  outfitSlot: 1
