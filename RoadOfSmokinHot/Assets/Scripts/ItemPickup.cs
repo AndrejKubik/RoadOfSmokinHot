@@ -13,11 +13,11 @@ public class ItemPickup : MonoBehaviour
     //        WearItem();
     //    }
     //}
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))  //when player collides with a piece of clothing
         {
+            GameManager.instance.collectedPickup = true;
             WearItem();
         }
     }
