@@ -74,9 +74,8 @@ public class GameManager : MonoBehaviour
 
             pickupParent.position = new Vector3(pickupParent.position.x, pickupParent.position.y, pickupParent.position.z + 5f); //move the pickup parent object away from the player
 
-            SpawnPickups(); //spawn new batch of pickups
-
             collectedPickup = false; //reset the trigger
+            SpawnPickups(); //spawn new batch of pickups
         }
     }
 
