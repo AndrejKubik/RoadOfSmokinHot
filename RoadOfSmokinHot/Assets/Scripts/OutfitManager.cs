@@ -16,6 +16,7 @@ public class OutfitManager : MonoBehaviour
     #endregion
 
     public Item[] currentOutfit;
+    [SerializeField] private Item oldItem;
     private int numberOfSlots;
     private int slotIndex;
 
@@ -34,6 +35,12 @@ public class OutfitManager : MonoBehaviour
         clothes.SetActive(true); //enable it's GameObject component of the Player object
         slotIndex = (int)newItem.outfitSlot; //get the int value from the item's enum slot index
 
+        if (currentOutfit[slotIndex] != null) //if on according clothes slot there is an item already
+        {
+            oldItem = currentOutfit[slotIndex]; //store the old item
+            TakeOff(oldItem);
+        }
+
         currentOutfit[slotIndex] = newItem; //equip the item to the according outfit slot
         GameManager.instance.score += newItem.itemScore; //add the equipped item score value to the current score
     }
@@ -42,5 +49,6 @@ public class OutfitManager : MonoBehaviour
     {
         clothes = playerClothesParent.transform.GetChild(currentItem.childIndex).gameObject; //find the GameObject reference using item's child index
         clothes.SetActive(false); //disable it's GameObject component of the Player object
+        GameManager.instance.score -= currentItem.itemScore; //subtract the undressed item's item score value from the total score value
     }
 }

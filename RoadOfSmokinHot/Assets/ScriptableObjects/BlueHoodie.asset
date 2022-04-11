@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: BlueHoodie
   childIndex: 2
-  itemScore: 2
+  itemScore: 10
   outfitSlot: 0

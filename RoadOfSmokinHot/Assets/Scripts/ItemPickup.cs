@@ -6,9 +6,17 @@ public class ItemPickup : MonoBehaviour
 {
     [SerializeField] private Item item;
 
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player"))  //when player collides with a piece of clothing
+    //    {
+    //        WearItem();
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))  //when player collides with a piece of clothing
+        if (other.gameObject.CompareTag("Player"))  //when player collides with a piece of clothing
         {
             WearItem();
         }
