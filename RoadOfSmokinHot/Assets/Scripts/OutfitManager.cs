@@ -16,39 +16,38 @@ public class OutfitManager : MonoBehaviour
     #endregion
 
     public Item[] currentOutfit;
-    [SerializeField] private Item oldItem;
-    private int numberOfSlots;
     private int slotIndex;
 
-    private GameObject clothes;
+    [SerializeField] private GameObject clothes;
+    [SerializeField] private GameObject oldClothes;
     [SerializeField] private GameObject playerClothesParent;
-
-    private void Start()
-    {
-        numberOfSlots = System.Enum.GetNames(typeof(OutfitSlot)).Length; //get the number of the outfit enum slots
-        currentOutfit = new Item[numberOfSlots]; //make the empty outfit array with according number of elements
-    }
 
     public void Wear(Item newItem)
     {
         clothes = playerClothesParent.transform.GetChild(newItem.childIndex).gameObject; //find the GameObject reference using item's child index
-        clothes.SetActive(true); //enable it's GameObject component of the Player object
         slotIndex = (int)newItem.outfitSlot; //get the int value from the item's enum slot index
+        clothes.SetActive(true); //enable it's GameObject component of the Player object
 
-        if (currentOutfit[slotIndex] != null) //if on according clothes slot there is an item already
+        if (currentOutfit[slotIndex] != null) //if the needed slot is occupied
         {
-            oldItem = currentOutfit[slotIndex]; //store the old item
-            TakeOff(oldItem);
-        }
+            TakeOff(currentOutfit[slotIndex]); //disable the current to make the new one visible
 
+            if(newItem == currentOutfit[slotIndex]) //if the new item is the same as the current one
+            {
+                currentOutfit[slotIndex] = null; //clear out the slot
+                return; //skip the rest of the method
+            }
+        }
+        
         currentOutfit[slotIndex] = newItem; //equip the item to the according outfit slot
         GameManager.instance.score += newItem.itemScore; //add the equipped item score value to the current score
     }
 
     public void TakeOff(Item currentItem)
     {
-        clothes = playerClothesParent.transform.GetChild(currentItem.childIndex).gameObject; //find the GameObject reference using item's child index
-        clothes.SetActive(false); //disable it's GameObject component of the Player object
+        oldClothes = playerClothesParent.transform.GetChild(currentItem.childIndex).gameObject; //find the GameObject reference using item's child index
+        oldClothes.SetActive(false); //disable it's GameObject component of the Player object
+        Debug.Log("kurac");
         GameManager.instance.score -= currentItem.itemScore; //subtract the undressed item's item score value from the total score value
     }
 }
