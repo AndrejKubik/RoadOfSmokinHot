@@ -38,6 +38,11 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] activePickups;
 
+    public bool finishReached;
+
+    public bool playerWon;
+    public bool playerLost;
+
     private void Start()
     {
         score = 0;
@@ -60,11 +65,6 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = score.ToString(); //change the text to the score number
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnPickups();
-        }
-
         if(collectedPickup) //when player collects a pickup
         {
             for (int i = 0; i < activePickups.Length; i++)
@@ -72,10 +72,13 @@ public class GameManager : MonoBehaviour
                 Destroy(activePickups[i]); //destroy every pickup in the scene
             }
 
-            pickupParent.position = new Vector3(pickupParent.position.x, pickupParent.position.y, pickupParent.position.z + 5f); //move the pickup parent object away from the player
-
             collectedPickup = false; //reset the trigger
-            SpawnPickups(); //spawn new batch of pickups
+
+            if(!finishReached) //if the finish line is not reached
+            {
+                pickupParent.position = new Vector3(pickupParent.position.x, pickupParent.position.y, pickupParent.position.z + 5f); //move the pickup parent object away from the player
+                SpawnPickups(); //spawn new batch of pickups
+            }
         }
     }
 
